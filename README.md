@@ -43,5 +43,5 @@ Run:
 ## Donations
 If you wish to support me and like this small script, you can donate! While I appreciate them, they are not expected nor required.
 
-CRO Address: `cro1nzfr89ha4m9nntqezec6pyndea9der98q524wc`
-Crypto.com App Referral Code: [gz5xr73eup](https://crypto.com/app/gz5xr73eup)
+- CRO Address: `cro1nzfr89ha4m9nntqezec6pyndea9der98q524wc`
+- Crypto.com App Referral Code: [gz5xr73eup](https://crypto.com/app/gz5xr73eup)
