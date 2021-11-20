@@ -61,11 +61,10 @@ if not validator_new["result"]["commissionRate"] == validator_old["result"]["com
         print("WARNING: " + warning)
         notification("CRO DeFi Earn - Warning", warning)
 
-if not validator_new["result"]["jailed"] == validator_old["result"]["jailed"]:
-    if validator_new["result"]["jailed"]:
-        warning = "Validator '" + validator_new["result"]["moniker"] + "' was jailed"
-        print("WARNING: " + warning)
-        notification("CRO DeFi Earn - Warning", warning)
+if validator_new["result"]["jailed"]:
+    warning = "Validator '" + validator_new["result"]["moniker"] + "' is jailed"
+    print("WARNING: " + warning)
+    notification("CRO DeFi Earn - Warning", warning)
         
 if not totalrewardslimit == 0:
     if convertToCRO(float(account_new["result"]["totalRewards"][0]["amount"])) > totalrewardslimit:
