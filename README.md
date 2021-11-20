@@ -25,7 +25,7 @@ CRO-DeFi-Warner can be used to notify you when a validator changes the commissio
 	- Examples: Run it daily, on computer start, etc.
 
 ### Option 2: Python File
-Python version: >3.9 (maybe works with other versions too..., tested on 3.9.9)
+Python version: >3.9 (maybe works with other versions too..., tested on 3.9.9)\
 Prerequisites:
 
     pip install notify-py requests
