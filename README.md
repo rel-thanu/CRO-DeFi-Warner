@@ -4,8 +4,6 @@
 ## Intro
 CRO-DeFi-Warner can be used to notify you when a validator changes the commission rate or gets jailed. It can also notify you when you reach a predefined total rewards limit. Every time you start it, it will check for changes since the last start. 
 
-> :information_source: I'm working on a webapp that notifies you via mail. 
-
 ## How to run
 2 Options to use this at the moment:
 * Run with .exe file (easier)
