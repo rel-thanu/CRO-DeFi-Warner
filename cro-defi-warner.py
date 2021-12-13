@@ -1,3 +1,4 @@
+#v0.2
 import sys
 import requests
 import json
@@ -14,6 +15,8 @@ def notification(title, message):
     notification.send()
 
 #LOAD SETTINGS
+validator = ""
+account = ""
 if os.path.isfile("config.json"):
     with open("config.json") as f:
         settings = json.load(f)
@@ -25,32 +28,47 @@ if os.path.isfile("config.json"):
 else:
     sys.exit(1)
 
-validator_file = validator + ".json"
-account_file = account + ".json"
-
-#CHECK IF FILE EXISTS / FIRST START
-if not os.path.isfile(validator_file):
-    validator_response = requests.get("https://crypto.org/explorer/api/v1/validators/" + validator) 
+#VALIDATOR
+if not validator == "":
+    validator_file = validator + ".json"
+    
+    #CHECK IF FILE EXISTS / FIRST START
+    if not os.path.isfile(validator_file):
+        validator_response = requests.get("https://crypto.org/explorer/api/v1/validators/" + validator) 
+        validator_new = json.loads(validator_response.text)
+        with open(validator_file, 'w') as f:
+            json.dump(validator_new, f)
+    
+    #GET NEW DATA
+    validator_response = requests.get("https://crypto.org/explorer/api/v1/validators/" + validator)
     validator_new = json.loads(validator_response.text)
+    with open(validator_file) as f:
+        validator_old = json.load(f)
+        
+    #SAVE NEW TO OLD
     with open(validator_file, 'w') as f:
-        json.dump(validator_new, f)
+        json.dump(validator_new, f) 
 
-if not os.path.isfile(account_file):
+#ACCOUNT
+if not account == "":
+    account_file = account + ".json"
+    
+    #CHECK IF FILE EXISTS / FIRST START
+    if not os.path.isfile(account_file):
+        account_response = requests.get("https://crypto.org/explorer/api/v1/accounts/" + account)
+        account_new = json.loads(account_response.text)
+        with open(account_file, 'w') as f:
+            json.dump(account_new, f)
+
+    #GET NEW DATA
     account_response = requests.get("https://crypto.org/explorer/api/v1/accounts/" + account)
     account_new = json.loads(account_response.text)
+    with open(account_file) as f:
+        account_old = json.load(f)
+        
+    #SAVE NEW TO OLD
     with open(account_file, 'w') as f:
         json.dump(account_new, f)
-
-#GET NEW DATA
-validator_response = requests.get("https://crypto.org/explorer/api/v1/validators/" + validator)
-validator_new = json.loads(validator_response.text)
-with open(validator_file) as f:
-    validator_old = json.load(f)
-
-account_response = requests.get("https://crypto.org/explorer/api/v1/accounts/" + account)
-account_new = json.loads(account_response.text)
-with open(account_file) as f:
-    account_old = json.load(f)
 
 #COMPARE WITH OLD
 if not validator_new["result"]["commissionRate"] == validator_old["result"]["commissionRate"]:
@@ -72,12 +90,6 @@ if not totalrewardslimit == 0:
         print("INFO: " + message) 
         notification("CRO DeFi Earn - Info", message)
         
-#SAVE NEW TO OLD
-with open(validator_file, 'w') as f:
-    json.dump(validator_new, f)   
-with open(account_file, 'w') as f:
-    json.dump(account_new, f)
-
 # print("****** VALIDATOR INFO ******")
 # print("Jailed: " + str(validator_new["result"]["jailed"]))
 # print("Bonded Status: " + validator_new["result"]["status"])
